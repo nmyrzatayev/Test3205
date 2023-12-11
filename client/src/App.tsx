@@ -35,8 +35,11 @@ function App() {
       setError(null)
       axios.get('http://localhost:5000/users/find', {
         cancelToken: newCancelSource.token,
-        params: formData
-      }).then((response) => {
+        params: {
+          ...formData,
+          number:formData.number.replace('-','')
+        }
+      }).then((response) => { 
         if (response.status === 200) {
           let users: User[] = [];
           response.data.map((user: any) => {
